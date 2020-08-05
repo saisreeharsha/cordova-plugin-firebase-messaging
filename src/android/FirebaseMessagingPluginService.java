@@ -46,7 +46,7 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
 
         try {
             ApplicationInfo ai = getPackageManager().getApplicationInfo(getApplicationContext().getPackageName(), PackageManager.GET_META_DATA);
-            defaultNotificationIcon = ai.metaData.getInt(NOTIFICATION_ICON_KEY, ai.icon);
+            defaultNotificationIcon = ai.metaData.getInt(NOTIFICATION_ICON_KEY, R.mipmap.ic_launcher);
             defaultNotificationChannel = ai.metaData.getString(NOTIFICATION_CHANNEL_KEY, "default");
             defaultNotificationColor = ContextCompat.getColor(this, ai.metaData.getInt(NOTIFICATION_COLOR_KEY));
         } catch (PackageManager.NameNotFoundException e) {
@@ -92,8 +92,8 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
     private void showAlert(RemoteMessage.Notification notification) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getNotificationChannel(notification))
                 .setSound(getNotificationSound(notification.getSound()))
-                .setContentTitle(notification.getTitle())
-                .setContentText(notification.getBody())
+                .setContentTitle(notification.getTitle()).setColor(Color.rgb(255,0,0)).setStyle(new NotificationCompat.BigTextStyle())
+                .setContentText(notification.getBody()).setColor(Color.rgb(0,0,0)).setStyle(new NotificationCompat.BigTextStyle())
                 .setGroup(notification.getTag())
                 .setSmallIcon(defaultNotificationIcon)
                 .setColor(defaultNotificationColor)
